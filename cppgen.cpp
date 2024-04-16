@@ -52,26 +52,38 @@ std::string input(std::string m) {
 
 // Our main goodies.
 int main() {
-    std::string msg = "How long do you want your password?: ";
-    std::string length = input(msg);
-    if (isInt(length))
+    std::system("clear||cls");
+    std::string ps_msg = "How long do you want your password?: ";
+    std::string length = input(ps_msg);
+
+    std::system("clear||cls");
+    std::string count_msg = "How many passwords would you like to generate?: ";
+    std::string count = input(count_msg);
+
+    if (isInt(length) && isInt(count))
     {
         int len = std::stoi(length);
+        int cnt = std::stoi(count);
         std::string characters = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz01234567890123456789~\"`'!!!!@@@@#$%^&*)(_-+=][}{|\\/><;:?.,";
-        std::string password = "";
-        for (int i = 0; i < len; ++i) {
-            int index = rng_int(0, characters.size()-1);
-            char letter = characters[index];
-            password += letter;
-        }
+        // I have multiple of certain characters and numbers because I want them to be used more often.
+
         std::system("clear||cls");
-        std::cout << "Password: " << password << "\nLength: " << length << std::endl;
+        for (int i = 0; i < cnt; ++i) {
+            std::string password = "";
+            for (int j = 0; j < len; ++j) {
+                int index = rng_int(0, characters.size()-1);
+                char letter = characters[index];
+                password += letter;
+            }
+            std::cout << "Password " << (i + 1) << ": " << password << std::endl;
+            std::cout << std::endl;
+        }
         return 0;
     }
     else
     {
         std::system("clear||cls");
-        throw std::invalid_argument("String can\'t be converted to an int.");
+        throw std::invalid_argument("String(s) can\'t be converted to an int.");
     }
 
 }
